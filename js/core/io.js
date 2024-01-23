@@ -75,12 +75,12 @@ io.on('connection', (socket) => {
       // consumir el endpoint para obtener el usuario por su token
       // le paso el token del usuario como parametro
      
-      const responseUser = await axios.get('http://3.129.106.17/api/user/'+name);
+      const responseUser = await axios.get('http://3.130.22.116/api/user/'+name);
       
       // consumir el endpoint para obtener la el proyecto por su codigo/llave
       // le paso el codigo de la sala
       
-      const responseProject = await axios.get('http://3.129.106.17/api/cargar-diagrama/'+room);
+      const responseProject = await axios.get('http://3.130.22.116/api/cargar-diagrama/'+room);
 
       if((responseUser.status === 200 && responseProject.status === 200) && responseUser.data.name && responseProject.data.nombre ) {
 
@@ -131,7 +131,7 @@ io.on('connection', (socket) => {
           content : roomGraphXmls[data.room]
         }
         // TODO: CAMBIAR A LA URL DE MI API
-        const response =  await axios.put('http://3.129.106.17/api/guardar-diagrama/'+data.room, body);
+        const response =  await axios.put('http://3.130.22.116/api/guardar-diagrama/'+data.room, body);
         //console.log(response.status);
         /* let message = 'Ocurrio un error al guardar el diagrama.';
         if(response.status === 200) {
