@@ -1,5 +1,5 @@
-var addClassDiagramPalette = require('./Diagrams/ClassDiagram.js');
-
+//var addClassDiagramPalette = require('./Diagrams/ClassDiagram.js');
+var addSequenceDiagramPalette = require('./Diagrams/ClassDiagram.js');
 /**
  * Copyright (c) 2006-2012, JGraph Ltd
  */
@@ -80,7 +80,8 @@ function Sidebar(editorUi, container) {
 Sidebar.prototype.init = function () {
 
   var dir = STENCIL_PATH;
-  addClassDiagramPalette(this, true);
+  //addClassDiagramPalette(this, true);
+  addSequenceDiagramPalette(this,true); ////AQUÍ CAMBIÉ PARA QUE ME MUESTRE EL ELEMENTO DEL DIAGRAMA DE SECUENCIA
 };
 
 /**

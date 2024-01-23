@@ -74,12 +74,12 @@ io.on('connection', (socket) => {
 
       // consumir el endpoint para obtener el usuario por su token
       // le paso el token del usuario como parametro
-      // TODO: CAMBIAR A LA URL DE MI API
+     
       const responseUser = await axios.get('http://127.0.0.1:8000/api/user/'+name);
       
       // consumir el endpoint para obtener la el proyecto por su codigo/llave
       // le paso el codigo de la sala
-      // TODO: CAMBIAR A LA URL DE MI API
+      
       const responseProject = await axios.get('http://127.0.0.1:8000/api/cargar-diagrama/'+room);
 
       if((responseUser.status === 200 && responseProject.status === 200) && responseUser.data.name && responseProject.data.nombre ) {
@@ -176,6 +176,7 @@ io.on('connection', (socket) => {
 
 //process.env.PORT ||9090
 server.listen(9090);
+//const port = process.env.PORT || 9090;
 console.log('servidor socket conectado en el puerto 9090');
 module.exports = {
   sockets,

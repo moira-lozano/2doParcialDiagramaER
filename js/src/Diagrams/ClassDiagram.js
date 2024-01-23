@@ -82,4 +82,195 @@ const addClassDiagramPalette = function (sb, expand) {
   sb.addPaletteFunctions('classDiagram', mxResources.get('classDiagram'), expand || false, fns);
 };
 
-module.exports = addClassDiagramPalette;
+/**
+ * Adds the sequence diagram palette to the sidebar.
+ */
+const addSequenceDiagramPalette = function (sb, expand) {
+  // Default tags
+  var dt = 'uml sequence';
+
+  var fns = [
+    ////MUESTRA EL OBJETO PARA UN DIAGRAMA DE SECUENCIA
+    sb.createVertexTemplateEntry(
+      'rounded=0;whiteSpace=wrap;html=1;', // Estilo del vértice del objeto
+      120, // Ancho del vértice en la paleta
+      60, // Altura del vértice en la paleta
+      '<div style="box-sizing:border-box;width:100%;background:#e4e4e4;padding:2px;text-align:center;">ObjectName</div>', // Contenido HTML del vértice
+      'Object', // Etiqueta del vértice
+      null, // Información adicional (puede ser null)
+      null, // Estilo específico del vértice (puede ser null)
+      dt + 'object' // Etiqueta específica para el tipo de objeto
+    ), 
+      // Entrada para la destruccion 
+      sb.createVertexTemplateEntry(
+        'shape=umlDestroy;whiteSpace=wrap;html=1;strokeWidth=3;targetShapes=umlLifeline;', // Estilo del vértice de destrucción
+        30, // Ancho del vértice en la paleta
+        20, // Altura del vértice en la paleta
+        '', // Etiqueta del vértice
+        '', // Descripción del vértice
+        null, // Información adicional (puede ser null)
+        'uml destroy' // Estilo específico del vértice
+      ),
+
+  // Entrada para una línea de vida
+  sb.createVertexTemplateEntry(
+    'shape=umlLifeline;perimeter=rectanglePerimeter;whiteSpace=wrap;html=1;',
+    120, 400, 'Lifeline', 'Lifeline', null, 'uml lifeline'
+  ),
+
+    // Entrada para la instancia de una línea de vida
+    sb.createVertexTemplateEntry(
+      'shape=umlLifeline;perimeter=rectanglePerimeter;whiteSpace=wrap;html=1;',
+      120, 400, 'Instance: Lifeline', 'Instance: Lifeline', null, 'uml instance lifeline'
+    ),
+
+    //Boundary lifeline
+    sb.createVertexTemplateEntry(
+      'shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={"curved":0,"rounded":0};participant=umlBoundary;fontSize=16;', // Estilo de la línea de vida con límites
+      60, // Ancho del vértice en la paleta
+      400, // Altura del vértice en la paleta
+      '', // Etiqueta del vértice
+      'Boundary Lifeline', // Estilo específico del vértice
+      null, // Información adicional (puede ser null)
+      'uml lifeline' // Estilo general del vértice
+    ),
+
+      //Entity lifeline
+      sb.createVertexTemplateEntry(
+        'shape=umlLifeline;whiteSpace=wrap;html=1;perimeter=lifelinePerimeter;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={"curved":0,"rounded":0};participant=umlEntity;fontSize=16;', // Estilo de la línea de vida con límites
+        60, // Ancho del vértice en la paleta
+        400, // Altura del vértice en la paleta
+        '', // Etiqueta del vértice
+        'Entity Lifeline', // Estilo específico del vértice
+        null, // Información adicional (puede ser null)
+        'uml lifeline' // Estilo general del vértice
+      ),
+
+        //Control lifeline
+    sb.createVertexTemplateEntry(
+      'shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={"curved":0,"rounded":0};participant=umlControl;fontSize=16;', // Estilo de la línea de vida con límites
+      60, // Ancho del vértice en la paleta
+      400, // Altura del vértice en la paleta
+      '', // Etiqueta del vértice
+      'Control Lifeline', // Estilo específico del vértice
+      null, // Información adicional (puede ser null)
+      'uml lifeline' // Estilo general del vértice
+    ),
+
+    ////lifeline actor
+    sb.createVertexTemplateEntry(
+      'shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={"curved":0,"rounded":0};participant=umlActor;fontSize=16;', // Estilo de la línea de vida con límites
+      20, // Ancho del vértice en la paleta
+      400, // Altura del vértice en la paleta
+      '', // Etiqueta del vértice
+      'Actor Lifeline', // Estilo específico del vértice
+      null, // Información adicional (puede ser null)
+      'uml lifeline' // Estilo general del vértice
+    ),
+
+   // Entrada para la activación bar
+   sb.createVertexTemplateEntry(
+    'shape=umlActivationBar;whiteSpace=wrap;html=1;',
+    20, 100, '', 'Activation Bar', null, 'uml activation bar'
+  ),
+
+  //Entrada para el actor
+  sb.createVertexTemplateEntry(
+    'shape=umlActor;whiteSpace=wrap;html=1;verticalAlign=top;labelPosition=bottom;verticalLabelPosition=bottom;align=center;spacingTop=-5;', 
+    20, 50, 'Actor', 'Actor', null, null, 'uml actor'
+),
+ ////MUESTRA EL MENSAJE PARA UN DIAGRAMA DE SECUENCIA
+ sb.createEdgeTemplateEntry('edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=0.5;entryY=0;dashed=1;jettySize=auto;orthogonalLoop=1;'
+ , 160, 0, 'Message', 'Sequence Message', null, dt + 'message'), 
+
+  // Entrada para un mensaje asíncrono dispatch
+  sb.createEdgeTemplateEntry(
+    'shape=umlDispatch;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;',
+    160, 0, 'Dispatch', 'Dispatch', null, 'uml dispatch'
+  ),
+
+  ///para callback
+  sb.createEdgeTemplateEntry(
+    'html=1;verticalAlign=bottom;endArrow=classic;curved=0;rounded=0;entryX=16;entryY=0;entryDx=16;entryDy=0;fontSize=0;startSize=12;',
+    160, 0, '', 'Callback', null, 'uml callback'
+  ),
+
+  /// entrada para iniciar estado
+  sb.createVertexTemplateEntry(
+    'ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;fontSize=16;edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;fontSize=12;curved=1;',
+    30, 30, '', 'Start Node', null, 'uml start state'
+  ),
+/// entrada para finalizar estado
+  sb.createVertexTemplateEntry(
+    'ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;fontSize=16;',
+    30, 30, '', 'End Node', null, 'uml end state'
+  ),
+
+
+   ///para frame loop
+  sb.createVertexTemplateEntry(
+    'shape=umlFrame;whiteSpace=wrap;html=1;', // Estilo del vértice del objeto
+    500, // Ancho del vértice en la paleta
+    300, // Altura del vértice en la paleta
+    '<div style="box-sizing:border-box;width:100%;background:#e4e4e4;padding:2px;text-align:center;">Loop</div>', // Contenido HTML del vértice
+    'Loop', // Etiqueta del vértice
+    null, // Información adicional (puede ser null)
+    null, // Estilo específico del vértice (puede ser null)
+    dt + 'object' // Etiqueta específica para el tipo de objeto
+  ),
+
+     ///para frame critical
+     sb.createVertexTemplateEntry(
+      'shape=umlFrame;whiteSpace=wrap;html=1;', // Estilo del vértice del objeto
+      500, // Ancho del vértice en la paleta
+      300, // Altura del vértice en la paleta
+      '<div style="box-sizing:border-box;width:100%;background:#e4e4e4;padding:2px;text-align:center;">Critical</div>', // Contenido HTML del vértice
+      'Critical', // Etiqueta del vértice
+      null, // Información adicional (puede ser null)
+      null, // Estilo específico del vértice (puede ser null)
+      dt + 'object' // Etiqueta específica para el tipo de objeto
+    ),
+     ///para frame alternative
+     sb.createVertexTemplateEntry(
+      'shape=umlFrame;whiteSpace=wrap;html=1;', // Estilo del vértice del objeto
+      500, // Ancho del vértice en la paleta
+      300, // Altura del vértice en la paleta
+      '<div style="box-sizing:border-box;width:100%;background:#e4e4e4;padding:2px;text-align:center;">Alternative</div>', // Contenido HTML del vértice
+      'Alternative', // Etiqueta del vértice
+      null, // Información adicional (puede ser null)
+      null, // Estilo específico del vértice (puede ser null)
+      dt + 'object' // Etiqueta específica para el tipo de objeto
+    ),
+         ///para frame option
+         sb.createVertexTemplateEntry(
+          'shape=umlFrame;whiteSpace=wrap;html=1;', // Estilo del vértice del objeto
+          500, // Ancho del vértice en la paleta
+          300, // Altura del vértice en la paleta
+          '<div style="box-sizing:border-box;width:100%;background:#e4e4e4;padding:2px;text-align:center;">Option</div>', // Contenido HTML del vértice
+          'Option', // Etiqueta del vértice
+          null, // Información adicional (puede ser null)
+          null, // Estilo específico del vértice (puede ser null)
+          dt + 'object' // Etiqueta específica para el tipo de objeto
+        ),
+
+             ///para frame break
+     sb.createVertexTemplateEntry(
+      'shape=umlFrame;whiteSpace=wrap;html=1;', // Estilo del vértice del objeto
+      500, // Ancho del vértice en la paleta
+      300, // Altura del vértice en la paleta
+      '<div style="box-sizing:border-box;width:100%;background:#e4e4e4;padding:2px;text-align:center;">Break</div>', // Contenido HTML del vértice
+      'Break', // Etiqueta del vértice
+      null, // Información adicional (puede ser null)
+      null, // Estilo específico del vértice (puede ser null)
+      dt + 'object' // Etiqueta específica para el tipo de objeto
+    ),
+  ];
+  //ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;fontSize=16;
+
+  sb.addPaletteFunctions('sequenceDiagram', mxResources.get('sequenceDiagram'), expand || false, fns);
+};
+
+module.exports = addSequenceDiagramPalette;
+
+
+//module.exports = addClassDiagramPalette;
